@@ -159,8 +159,6 @@ scripts_per_page: |
   	font-size: 18px;
   	border-radius:4px;
   }
-  
-  .post p {text-indent: 0;}
   </style>
 scripts_for_doc: 
 domain: mill.farbox.com
@@ -202,6 +200,6 @@ alipay: /_image/alipay.jpg
 links_title: 
 links_layout: inline
 links: 
-client_date: 1494469036117
+client_date: 1493011204192
 ---
 HTML5,ECMAScript,CSS3,Vue...

@@ -303,3 +303,22 @@ this.$el
 //在可视区域的拖拽位置加入如下代码
    -webkit-overflow-scrolling : touch;
 ```
+
+### vuex在ie9上报错
+错误 :
+```
+[vuex] vuex requires a Promise polyfill in this browser. 
+
+```
+解决方案:
+```
+npm install --save-dev babel-polyfill
+```
+在webpack.config.js配置
+```
+module.exports = {
+  entry: {
+    app: ['babel-polyfill','./src/main.js']
+  },
+};
+```

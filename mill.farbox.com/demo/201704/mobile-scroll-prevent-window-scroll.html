@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>移动端浮层内滚动窗体不滚动的JS处理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="../css/frozen.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script type="text/javascript" src="../lib/es6-shim.min.js"></script>
+    <style media="screen">
+        .body {
+            text-align: center;
+            padding: 20px;
+            height: 1000px;
+        }
+
+        .noscroll,
+        .noscroll body {
+            overflow: hidden;
+        }
+
+        .noscroll body {
+            position: relative;
+        }
+
+        .popup {
+            transition: visibility .25s;
+            z-index: 3;
+            visibility: hidden;
+            overflow: hidden;
+        }
+
+        .popup,
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .popup .popup-overlay {
+            background-color: black;
+            opacity: 0;
+        }
+
+        .popup .popup-content {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: white;
+            -webkit-transition: transform .15s;
+            transition: transform .15s;
+            left: 40px;
+            top: 0;
+            -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+        }
+
+        .popup.active {
+            visibility: visible;
+        }
+
+        .active>.popup-overlay {
+            opacity: 0.5;
+        }
+
+        .active>.popup-content {
+            -webkit-transform: translate(0%, 0%);
+            transform: translate(0%, 0%);
+        }
+    </style>
+</head>
+
+<body>
+    <section class="body">
+        <p>主体内容</p>
+        <p>移动端查看效果</p>
+        <div class="ui-btn-wrap">
+            <button class="ui-btn-lg ui-btn-primary" id='clickPopup'>点击弹框</button>
+        </div>
+    </section>
+    <section class="popup">
+        <i class="popup-overlay"></i>
+        <div class="popup-content">
+
+        </div>
+    </section>
+    <script type="text/javascript" src="../lib/zepto.min.js"></script>
+    <script type="text/javascript">
+        $.smartScroll = (container, scrollable) => {
+            console.log(container.data('isBindScroll'))
+                //如果没有滚动容器或者已经绑定了滚动,忽略
+            if (!scrollable || container.data('isBindScroll')) return;
+
+            let data = {
+                posY: 0,
+                maxScroll: 0
+            };
+            container.on({
+                touchstart(event) {
+                    let e = event.touches[0] || event;
+                    //先判断是否是滚动元素或者其子元素
+                    let elTarget = $(e.target);
+                    if (!elTarget.length) return;
+
+                    let elScroll = elTarget;
+                    console.log(elScroll)
+                        // 获取标记的滚动元素，自身或子元素皆可
+                        // if (elTarget.is(scrollable)) {
+                        //     elScroll = elTarget;
+                        // } else if ((elScroll = elTarget.parents(scrollable)).length == 0) {
+                        //     elScroll = null;
+                        // }
+                        //
+                        // if (!elScroll) {
+                        //     return;
+                        // }
+
+                    // 当前滚动元素标记
+                    data.elScroll = elScroll;
+                    // 垂直位置标记
+                    data.posY = e.pageY;
+                    data.scrollY = elScroll.scrollTop();
+                    // 是否可以滚动
+                    data.maxscroll = elScroll[0].scrollHeight - elScroll[0].clientHeight;
+                    console.log(data)
+                },
+                touchmove(event) {
+
+                },
+                touchend(event) {
+
+                }
+            });
+        }
+    </script>
+    <script>
+        $(function() {
+            const $button = $('#clickPopup'),
+                $layer = $('.popup-overlay');
+            let $container = $('.popup');
+            $button.click(e => {
+                e.preventDefault();
+                $.smartScroll($container, '.scrollable');
+                $container.toggleClass('active')
+            });
+
+            $layer.click(e => {
+                e.preventDefault();
+                $container.toggleClass('active')
+            });
+        });
+    </script>
+</body>
+
+</html>
+</script>
+</body>
+
+</html>
