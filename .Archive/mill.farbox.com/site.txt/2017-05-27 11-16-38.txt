@@ -161,12 +161,6 @@ scripts_per_page: |
   }
   
   .post p {text-indent: 0;}
-  code{
-  	padding-left: 3px;
-      padding-right: 3px;
-      color: #c7254e;
-      background: #f9f2f4;
-  }
   </style>
 scripts_for_doc: 
 domain: mill.farbox.com
@@ -208,6 +202,6 @@ alipay: /_image/alipay.jpg
 links_title: 
 links_layout: inline
 links: 
-client_date: 1495854887827
+client_date: 1494469036117
 ---
 HTML5,ECMAScript,CSS3,Vue...
